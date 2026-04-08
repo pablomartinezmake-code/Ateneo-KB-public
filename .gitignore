@@ -1,0 +1,30 @@
+# Obsidian workspace state
+.obsidian/
+
+# Quick capture items
+00_inbox/*
+!00_inbox/.gitkeep
+
+# Python environments and caches
+.venv/
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Large binary files (not included in sample)
+*.pdf
+*.zip
+*.tar.gz
+*.mp4
+*.mp3
+*.wav
+
+# OS files
+Thumbs.db
+Desktop.ini
+.DS_Store
+
+# Transient development files
+*.tmp
+.tmp.drivedownload/
+.tmp.driveupload/
