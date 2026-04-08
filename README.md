@@ -47,6 +47,11 @@ Three scripts produce auditable views of the knowledge base:
 
 ![Lineage map](docs/lineage-map.png)
 
+Two short companion docs make the public sample easier to inspect:
+
+- [QUICKSTART.md](QUICKSTART.md) — run the sample in a few minutes
+- [docs/review-flow.md](docs/review-flow.md) — see how a raw source becomes a reviewed concept and then an output
+
 ## Public sample
 
 This repository contains a minimal curated sample — enough to demonstrate the method, not to replicate a full working corpus. The sample includes sources from AI research and from humanities (editorial philology, psychoanalytic textual criticism) to show that the same epistemic discipline works across domains.
@@ -65,6 +70,8 @@ python 04_ops/scripts/render_editorial_dashboard.py  # editorial review dashboar
 ```
 
 Requires Python 3.10+. No external dependencies beyond the standard library.
+
+If you want the fastest route through the sample, start with [QUICKSTART.md](QUICKSTART.md).
 
 ## Replicating the method
 
