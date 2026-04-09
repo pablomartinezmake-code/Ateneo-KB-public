@@ -116,3 +116,10 @@ Run the scripts and then open:
 - `../02_wiki/indices/editorial-dashboard.html`
 
 Those surfaces make the same contract visible at the level of the whole vault.
+
+If you want to inspect the same flow in a fully public-domain chain, compare it with:
+
+- `../01_raw/books/epicteto-manual-5-george-long.md`
+- `../02_wiki/fuentes/epicteto-manual-5.md`
+- `../02_wiki/conceptos/disciplina-del-asentimiento.md`
+- `../03_outputs/memos/what-stoic-assent-has-to-do-with-llm-knowledge-bases.md`

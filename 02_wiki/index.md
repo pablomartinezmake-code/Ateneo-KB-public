@@ -10,6 +10,7 @@
 - [[andrews-ai-and-research|Andrews — AI and Research (2026)]] — Criterion becomes more valuable when execution is cheap. `firme` · `ia`
 - [[lacan-seminario-xvii|Lacan — El Seminario XVII (1969-1970)]] — Cuatro discursos como estructuras de vínculo social. Caso fundacional de verificación. `firme` · `psicoanalisis`
 - [[miller-establecimiento-seminario-lacan|Miller — El establecimiento del Seminario (s.f.)]] — Qué significa establecer un texto oral: decisiones editoriales, fijación y criterio. `firme` · `psicoanalisis`
+- [[epicteto-manual-5|Epicteto — Manual, 5]] — Distinción entre lo que aparece y el juicio que añadimos. Cadena pública y auditable de punta a punta. `firme` · `estoicismo | filosofia`
 
 ## Conceptos
 
@@ -17,6 +18,7 @@
 - [[gobernanza-editorial|Gobernanza editorial]] — Human review as an explicit layer between accumulation and publication. `media` · `ateneo | ia`
 - [[verificacion-textual-humanistica|Verificación textual humanística]] — Confirmar que una cita existe donde dice existir. Más difícil que buscar subcadenas. `firme` · `humanidades | ia`
 - [[establecimiento-textual|Establecimiento textual]] — La operación de fijar un texto desde el habla o el manuscrito. Criterio editorial, no transcripción automática. `firme` · `psicoanalisis`
+- [[disciplina-del-asentimiento|Disciplina del asentimiento]] — No elevar la primera apariencia a juicio verdadero. Metáfora operativa para gobernanza editorial. `media` · `estoicismo | ia`
 
 ## Proyectos
 
@@ -26,3 +28,4 @@
 
 - **Why this is not another second brain** · public memo · Conceptos: [[criterio-vs-acceso]], [[gobernanza-editorial]]
 - **Yo, Claudio nº 5 — Establecer un texto** · draft · Fuente: [[miller-establecimiento-seminario-lacan]] → Concepto: [[establecimiento-textual]]
+- **What Stoic assent has to do with LLM knowledge bases** · public memo · Fuente: [[epicteto-manual-5]] → Concepto: [[disciplina-del-asentimiento]]

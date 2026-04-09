@@ -27,10 +27,11 @@ To show that the interesting difference is not another AI notebook, but a method
 - The repository exposes raw captures, curated notes, concepts, outputs, templates, and scripts.
 - It generates a graph, a lineage map, and an editorial dashboard from the same sample corpus.
 - The public sample is intentionally small so the method remains legible.
+- The sample now includes two complementary chains: a denser psychoanalytic case (Lacan/Miller) and a fully public-domain Stoic case (Epictetus) that can be audited end to end.
 
 ## Lectura abierta
 
-This public edition is not a clone of a private vault. It is closer to a method release or a reproducible editorial sample.
+This public edition is not a clone of a private vault. It is closer to a method release or a reproducible editorial sample, with one chain that demonstrates conceptual density and another that demonstrates portability without copyright friction.
 
 ## Hipótesis abierta
 

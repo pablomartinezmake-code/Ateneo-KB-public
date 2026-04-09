@@ -54,7 +54,12 @@ Two short companion docs make the public sample easier to inspect:
 
 ## Public sample
 
-This repository contains a minimal curated sample — enough to demonstrate the method, not to replicate a full working corpus. The sample includes sources from AI research and from humanities (editorial philology, psychoanalytic textual criticism) to show that the same epistemic discipline works across domains.
+This repository contains a minimal curated sample — enough to demonstrate the method, not to replicate a full working corpus. The sample includes:
+
+- a denser psychoanalytic chain (Lacan/Miller) that shows editorial judgement under copyright constraints
+- a fully public-domain Stoic chain (Epictetus) that can be audited end to end by anyone cloning the repo
+
+Together they show both depth and portability.
 
 ## Relation to Ateneo
 

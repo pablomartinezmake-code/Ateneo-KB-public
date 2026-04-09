@@ -40,9 +40,9 @@ What to look for:
 - `Editorial dashboard` shows confidence, review states, and proof surfaces
 - `Strict graph` catches broken links and forces the sample to stay coherent
 
-## 3. Follow one complete chain
+## 3. Follow two complementary chains
 
-The clearest humanities sample in this public repo is this one:
+For editorial density, start with this one:
 
 ```text
 01_raw/books/miller-establecimiento-seminario-lacan.md
@@ -51,7 +51,16 @@ The clearest humanities sample in this public repo is this one:
   -> 03_outputs/drafts/yo-claudio-05-establecer-texto.md
 ```
 
-Read those four files in order.
+For a fully public-domain sample that can be audited end to end, inspect this one:
+
+```text
+01_raw/books/epicteto-manual-5-george-long.md
+  -> 02_wiki/fuentes/epicteto-manual-5.md
+  -> 02_wiki/conceptos/disciplina-del-asentimiento.md
+  -> 03_outputs/memos/what-stoic-assent-has-to-do-with-llm-knowledge-bases.md
+```
+
+Read either chain in order, or compare both.
 
 You will see the method becoming more explicit at each step:
 
