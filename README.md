@@ -43,9 +43,9 @@ Three scripts produce auditable views of the knowledge base:
 - **Lineage map** — traces how raw captures become curated claims and then public outputs (`render_lineage_map.py`)
 - **Editorial dashboard** — review queue, confidence distribution, and proof surface (`render_editorial_dashboard.py`)
 
-![Editorial dashboard](docs/editorial-dashboard.png)
+![Editorial dashboard](docs/editorial-dashboard.webp)
 
-![Lineage map](docs/lineage-map.png)
+![Lineage map](docs/lineage-map.webp)
 
 Two short companion docs make the public sample easier to inspect:
 
