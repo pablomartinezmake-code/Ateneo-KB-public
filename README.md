@@ -78,6 +78,32 @@ Requires Python 3.10+. No external dependencies beyond the standard library.
 
 If you want the fastest route through the sample, start with [QUICKSTART.md](QUICKSTART.md).
 
+## Ingesting to raw
+
+The public repo also includes two lightweight ingest helpers:
+
+```bash
+python pdf2md.py path/to/file.pdf
+python ingest_to_raw.py path/to/file.docx
+python ingest_to_raw.py path/to/file.html --copy-original --write-meta
+```
+
+The intended split is:
+
+- `pdf2md.py` for PDFs when page-sensitive extraction matters more than broad format coverage
+- `ingest_to_raw.py` as a hybrid front door:
+  - `pdf` -> `pymupdf4llm`
+  - `md` / `txt` -> passthrough
+  - `docx`, `pptx`, `xlsx`, `html`, `epub`, etc. -> `MarkItDown` if installed
+
+`MarkItDown` is optional rather than required:
+
+```bash
+pip install "markitdown[all]"
+```
+
+That keeps the sample honest about a core distinction in the method: conversion is useful, but editorial governance still happens later in `02_wiki/`.
+
 ## Replicating the method
 
 The value here is the pattern, not this particular corpus. To adapt Ateneo-KB to another domain:
