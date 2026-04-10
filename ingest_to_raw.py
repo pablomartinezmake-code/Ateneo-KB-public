@@ -2,7 +2,7 @@
 Hybrid file → Markdown ingest for Ateneo-KB.
 
 Default behaviour:
-- PDF -> pymupdf4llm via pdf2md helpers
+- PDF -> MarkItDown by default; use pdf2md explicitly when page-sensitive extraction matters
 - Markdown / text -> plain passthrough
 - Other supported office / web formats -> MarkItDown (if installed)
 
@@ -10,6 +10,7 @@ Examples:
   python ingest_to_raw.py path/to/file.pdf
   python ingest_to_raw.py path/to/file.docx
   python ingest_to_raw.py notes.txt --copy-original
+  python ingest_to_raw.py book.pdf --converter pdf2md
   python ingest_to_raw.py slides.pptx --out 01_raw/notion --write-meta
 """
 
@@ -95,7 +96,7 @@ def infer_converter(input_path: Path, explicit: str) -> str:
         return explicit
     suffix = input_path.suffix.lower()
     if suffix == ".pdf":
-        return "pdf2md"
+        return "markitdown"
     if suffix in TEXT_PASSTHROUGH_EXTENSIONS:
         return "copy"
     return "markitdown"

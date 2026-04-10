@@ -86,17 +86,19 @@ The public repo also includes two lightweight ingest helpers:
 python pdf2md.py path/to/file.pdf
 python ingest_to_raw.py path/to/file.docx
 python ingest_to_raw.py path/to/file.html --write-meta
+python ingest_to_raw.py path/to/book.pdf --converter pdf2md
 ```
 
 The intended split is:
 
 - `pdf2md.py` for PDFs when page-sensitive extraction matters more than broad format coverage
 - `ingest_to_raw.py` as a hybrid front door:
-  - `pdf` -> `pymupdf4llm`
+  - `pdf` -> `MarkItDown` by default
   - `md` / `txt` -> passthrough
   - `docx`, `pptx`, `xlsx`, `html`, `epub`, etc. -> `MarkItDown` if installed
 
 The wrapper now preserves the original source by default unless the input already lives in `01_raw/`. Use `--skip-original-copy` only for explicit exceptions.
+For PDFs, `auto` now prefers `MarkItDown`; use `--converter pdf2md` when page-sensitive extraction or scanned-page reconstruction matters more than speed.
 
 `MarkItDown` is optional rather than required:
 

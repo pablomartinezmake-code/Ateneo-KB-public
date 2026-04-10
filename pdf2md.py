@@ -9,11 +9,13 @@ Usage:
 import sys
 import os
 import re
+import unicodedata
 import pymupdf4llm
 
 
 def slugify(name: str) -> str:
     name = os.path.splitext(os.path.basename(name))[0]
+    name = unicodedata.normalize("NFKD", name).encode("ascii", "ignore").decode("ascii")
     name = name.lower().strip()
     name = re.sub(r"[^\w\s-]", "", name)
     name = re.sub(r"[\s_]+", "-", name)
