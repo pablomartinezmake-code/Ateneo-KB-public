@@ -32,6 +32,7 @@ from pdf2md import (
 )
 
 REPO_ROOT = Path(__file__).resolve().parent
+RAW_ROOT = REPO_ROOT / "01_raw"
 DEFAULT_MD_OUT = "01_raw/web"
 TEXT_PASSTHROUGH_EXTENSIONS = {".md", ".txt"}
 
@@ -64,7 +65,18 @@ def build_parser() -> argparse.ArgumentParser:
     parser.add_argument(
         "--copy-original",
         action="store_true",
-        help="Copia también el archivo original a la vault.",
+        help=(
+            "Compatibilidad hacia atrás. La preservación del original ahora es el "
+            "comportamiento por defecto."
+        ),
+    )
+    parser.add_argument(
+        "--skip-original-copy",
+        action="store_true",
+        help=(
+            "No copia el original a la vault. Úsalo solo si el archivo ya vive en "
+            "01_raw o si quieres forzar una ingesta derivada sin original."
+        ),
     )
     parser.add_argument(
         "--original-out",
@@ -105,6 +117,14 @@ def ensure_input_exists(input_path: Path) -> None:
         raise FileNotFoundError(f"No existe el archivo de entrada: {input_path}")
 
 
+def is_in_raw(input_path: Path) -> bool:
+    try:
+        input_path.resolve().relative_to(RAW_ROOT.resolve())
+    except ValueError:
+        return False
+    return True
+
+
 def convert_with_markitdown(input_path: Path) -> str:
     try:
         from markitdown import MarkItDown
@@ -130,10 +150,20 @@ def convert_with_copy(input_path: Path) -> str:
     return input_path.read_text(encoding="utf-8")
 
 
-def write_meta(meta_path: Path, *, source_path: Path, original_copy: Path | None, converter: str) -> None:
+def write_meta(
+    meta_path: Path,
+    *,
+    source_path: Path,
+    original_copy: Path | None,
+    original_preserved: bool,
+    preservation_mode: str,
+    converter: str,
+) -> None:
     payload = {
         "source_path": str(source_path.resolve()),
         "original_copy": str(original_copy.resolve()) if original_copy else None,
+        "original_preserved": original_preserved,
+        "preservation_mode": preservation_mode,
         "converter": converter,
         "converted_at": datetime.now(UTC).isoformat().replace("+00:00", "Z"),
         "input_extension": source_path.suffix.lower(),
@@ -147,12 +177,15 @@ def write_meta(meta_path: Path, *, source_path: Path, original_copy: Path | None
 def maybe_copy_original(
     *,
     input_path: Path,
-    copy_original: bool,
+    skip_original_copy: bool,
     original_out: str | None,
     overwrite: bool,
-) -> Path | None:
-    if not copy_original:
-        return None
+) -> tuple[Path | None, str]:
+    if is_in_raw(input_path):
+        return input_path.resolve(), "already_in_vault"
+
+    if skip_original_copy:
+        return None, "skipped"
 
     target_dir = resolve_output_dir(original_out or infer_original_out(input_path))
     target_path = Path(target_dir) / input_path.name
@@ -161,7 +194,7 @@ def maybe_copy_original(
             f"El original ya existe en la vault: {target_path}. Usa --overwrite para reemplazarlo."
         )
     shutil.copy2(input_path, target_path)
-    return target_path
+    return target_path, "copied"
 
 
 def main() -> None:
@@ -187,24 +220,35 @@ def main() -> None:
         markdown = convert_with_copy(input_path)
 
     write_markdown(str(out_path), markdown)
-    copied_original = maybe_copy_original(
+    copied_original, preservation_mode = maybe_copy_original(
         input_path=input_path,
-        copy_original=args.copy_original,
+        skip_original_copy=args.skip_original_copy,
         original_out=args.original_out,
         overwrite=args.overwrite,
     )
+
+    if preservation_mode == "skipped":
+        print(
+            "Warning: original no preservado en 01_raw. Esta ingesta pierde trazabilidad "
+            "editorial salvo que el usuario lo haya pedido explícitamente.",
+            file=sys.stderr,
+        )
 
     if args.write_meta:
         write_meta(
             out_path.with_suffix(".meta.json"),
             source_path=input_path,
             original_copy=copied_original,
+            original_preserved=preservation_mode != "skipped",
+            preservation_mode=preservation_mode,
             converter=converter,
         )
 
     print(f"Conversor: {converter}")
     print(f"Markdown:  {out_path}")
-    if copied_original:
+    if preservation_mode == "already_in_vault":
+        print(f"Original:  ya estaba preservado en {copied_original}")
+    elif copied_original:
         print(f"Original:  {copied_original}")
 
 

@@ -85,7 +85,7 @@ The public repo also includes two lightweight ingest helpers:
 ```bash
 python pdf2md.py path/to/file.pdf
 python ingest_to_raw.py path/to/file.docx
-python ingest_to_raw.py path/to/file.html --copy-original --write-meta
+python ingest_to_raw.py path/to/file.html --write-meta
 ```
 
 The intended split is:
@@ -96,11 +96,15 @@ The intended split is:
   - `md` / `txt` -> passthrough
   - `docx`, `pptx`, `xlsx`, `html`, `epub`, etc. -> `MarkItDown` if installed
 
+The wrapper now preserves the original source by default unless the input already lives in `01_raw/`. Use `--skip-original-copy` only for explicit exceptions.
+
 `MarkItDown` is optional rather than required:
 
 ```bash
 pip install "markitdown[all]"
 ```
+
+If you are working on Windows, prefer `ingest_to_raw.py` over the raw `markitdown` CLI so the ingest writes files and provenance metadata consistently.
 
 That keeps the sample honest about a core distinction in the method: conversion is useful, but editorial governance still happens later in `02_wiki/`.
 
