@@ -21,6 +21,8 @@ A structured, replicable knowledge base that separates:
 
 Every note declares its sources, its confidence level (`firme` · `media` · `abierta`), and its epistemic status (`evidencia firme` · `lectura abierta` · `hipótesis abierta`). Nothing enters the curated layer without review. Nothing claims more support than it has.
 
+When a source is not yet fixed, the method also expects a small lookup trace before curation: a raw note that records the queries run, the catalogs or databases checked, the candidate records found, and the identifier or URL that justified the provisional selection.
+
 ## What this is not
 
 This is not another second brain, not a note-taking app, not an AI-powered personal wiki. The architecture follows [Karpathy's LLM Wiki pattern](https://gist.github.com/karpathy/442a6bf555914893e9891c11519de94f) (`raw → wiki → outputs`), but adds what that pattern intentionally leaves open: editorial governance for domains where getting it wrong has consequences.
@@ -109,6 +111,18 @@ pip install "markitdown[all]"
 If you are working on Windows, prefer `ingest_to_raw.py` over the raw `markitdown` CLI so the ingest writes files and provenance metadata consistently.
 
 That keeps the sample honest about a core distinction in the method: conversion is useful, but editorial governance still happens later in `02_wiki/`.
+
+## Search Trails
+
+Use `04_ops/templates/search-trail.md` when a source must be located or disambiguated before ingest.
+
+The point is simple: lookup is not yet curation. A search trail should preserve:
+
+- the query you started from
+- the databases or catalogs you checked
+- the candidate records you found
+- the identifier or URL that justified the provisional selection
+- the ambiguity that still remains, if any
 
 ## Replicating the method
 

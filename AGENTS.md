@@ -35,6 +35,7 @@ It demonstrates a method:
    - `actualizado`
 5. Treat this repo as a public demo of a method, not as a personal vault.
 6. When ingesting new raw material, prefer `python ingest_to_raw.py "path/to/file" --write-meta`; preserve the original by default, use `MarkItDown` as the default PDF path, and treat `--skip-original-copy` as an explicit exception. Use `--converter pdf2md` only when page-sensitive extraction matters more than speed.
+7. When a source is not yet fixed, record a reproducible lookup trace before curation. Use `04_ops/templates/search-trail.md` to preserve the query trail, candidate records, and the reason a source was selected.
 
 ## Goal
 
