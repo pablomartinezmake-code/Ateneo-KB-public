@@ -15,3 +15,7 @@ Generated `graph.json`, `lineage-map.html`, and `editorial-dashboard.html` for t
 ## [2026-04-07] ingest | lacan-seminario-xvii (1969-1970)
 
 Added raw capture `01_raw/books/lacan-seminario-xvii-s17-paidós.md`, curated source `02_wiki/fuentes/lacan-seminario-xvii.md`, and new concept `02_wiki/conceptos/verificacion-textual-humanistica.md`. Updated `02_wiki/index.md`. Establishes the humanities-facing strand of the public sample.
+
+## [2026-04-12] ops | Syncing improvements from master
+
+Updated `AGENTS.md` with the "Consolidation Principle" (#8) to maintain a cohesive knowledge graph. Integrated the `epub_clean` extraction logic into `ingest_to_raw.py` to handle messy EPUB files natively.

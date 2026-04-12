@@ -19,8 +19,10 @@ from __future__ import annotations
 import argparse
 import inspect
 import json
+import re
 import shutil
 import sys
+import zipfile
 from datetime import datetime, UTC
 from pathlib import Path
 
@@ -50,7 +52,7 @@ def build_parser() -> argparse.ArgumentParser:
     )
     parser.add_argument(
         "--converter",
-        choices=["auto", "pdf2md", "markitdown"],
+        choices=["auto", "pdf2md", "markitdown", "epub_clean"],
         default="auto",
         help="Conversor a usar. 'auto' enruta por extensión.",
     )
@@ -97,6 +99,8 @@ def infer_converter(input_path: Path, explicit: str) -> str:
     suffix = input_path.suffix.lower()
     if suffix == ".pdf":
         return "markitdown"
+    if suffix == ".epub":
+        return "epub_clean"
     if suffix in TEXT_PASSTHROUGH_EXTENSIONS:
         return "copy"
     return "markitdown"
@@ -145,6 +149,35 @@ def convert_with_markitdown(input_path: Path) -> str:
     if not text:
         raise RuntimeError(f"MarkItDown no devolvió texto para: {input_path}")
     return text
+
+
+def convert_with_epub_clean(input_path: Path) -> str:
+    """
+    Custom clean extraction for EPUB files. 
+    Dives into zip to extract only text from HTML/XHTML, avoiding XML/CSS junk.
+    """
+    with zipfile.ZipFile(input_path, 'r') as z:
+        # Get all html/xhtml/htm files
+        text_files = [f for f in z.namelist() if f.lower().endswith(('.xhtml', '.html', '.htm'))]
+        # Sort them (usually alphabetically works for OEBPS)
+        text_files.sort()
+        
+        full_text = []
+        for f in text_files:
+            content = z.read(f).decode('utf-8', errors='ignore')
+            # Basic HTML cleaning
+            # Remove scripts and styles
+            content = re.sub(r'<(script|style).*?>.*?</\1>', '', content, flags=re.DOTALL | re.IGNORECASE)
+            # Remove tags
+            content = re.sub(r'<.*?>', ' ', content, flags=re.DOTALL)
+            # Normalize whitespace
+            content = re.sub(r'\s+', ' ', content).strip()
+            if content:
+                # We don't add titles per file to keep it cleaner for RAG, 
+                # but we separate them.
+                full_text.append(content)
+        
+        return "\n\n".join(full_text)
 
 
 def convert_with_copy(input_path: Path) -> str:
@@ -217,6 +250,8 @@ def main() -> None:
         markdown = convert_pdf_to_markdown(str(input_path))
     elif converter == "markitdown":
         markdown = convert_with_markitdown(input_path)
+    elif converter == "epub_clean":
+        markdown = convert_with_epub_clean(input_path)
     else:
         markdown = convert_with_copy(input_path)
 
