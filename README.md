@@ -10,6 +10,23 @@ Current tools collapse that distinction. A retrieved fragment looks the same whe
 
 Ateneo-KB is a working method for keeping that layer visible.
 
+## Current scope
+
+This public edition is a working sample of the method, not the full research system.
+
+Operational here today:
+
+- immutable raw captures and curated notes with explicit confidence
+- generated audit surfaces (`graph`, `lineage map`, `editorial dashboard`)
+- reproducible search trails before curation when a source is still being fixed
+- hybrid ingest helpers with provenance sidecars and local EPUB cleanup
+
+Not included here:
+
+- the full private corpus
+- the live Supabase research bridge used in the main workspace
+- the broader internal review and evidence-pack workflow still evolving in the private vault
+
 ## What this is
 
 A structured, replicable knowledge base that separates:
@@ -97,10 +114,12 @@ The intended split is:
 - `ingest_to_raw.py` as a hybrid front door:
   - `pdf` -> `MarkItDown` by default
   - `md` / `txt` -> passthrough
-  - `docx`, `pptx`, `xlsx`, `html`, `epub`, etc. -> `MarkItDown` if installed
+  - `epub` -> local `epub_clean` extraction to avoid XHTML/CSS noise and missing chapters
+  - `docx`, `pptx`, `xlsx`, `html`, etc. -> `MarkItDown` if installed
 
 The wrapper now preserves the original source by default unless the input already lives in `01_raw/`. Use `--skip-original-copy` only for explicit exceptions.
 For PDFs, `auto` now prefers `MarkItDown`; use `--converter pdf2md` when page-sensitive extraction or scanned-page reconstruction matters more than speed.
+For EPUBs, `auto` now prefers `epub_clean` rather than the generic path.
 
 `MarkItDown` is optional rather than required:
 
